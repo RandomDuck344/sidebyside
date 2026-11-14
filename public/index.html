@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SideBySide | Watch together</title>
+  <link rel="stylesheet" href="/styles.css?v=3">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">◫</span> SideBySide</a>
+      <span class="tagline">Watch together, wherever.</span>
+    </header>
+
+    <section id="lobby" class="lobby panel">
+      <div class="hero">
+        <div class="eyebrow">A SHARED SCREEN, FROM ANYWHERE</div>
+        <h1>Good videos are<br><span>better together.</span></h1>
+        <p>Create a room or join a friend. Everyone can control playback, search YouTube, and add videos to the queue.</p>
+      </div>
+      <div class="entry-card">
+        <label for="displayName">Your name</label>
+        <input id="displayName" maxlength="24" placeholder="What should we call you?" value="">
+        <button id="createRoom" class="primary full">Create a room</button>
+        <div class="or"><span>OR JOIN A ROOM</span></div>
+        <div class="join-row">
+          <input id="roomCode" maxlength="6" placeholder="ROOM CODE" autocomplete="off">
+          <button id="joinRoom" class="secondary">Join</button>
+        </div>
+        <p id="lobbyError" class="error"></p>
+      </div>
+    </section>
+
+    <section id="watch" class="watch-layout hidden">
+      <div class="main-column">
+        <div class="room-heading panel">
+          <div><div class="eyebrow">YOU'RE WATCHING IN</div><h2>Room <span id="roomCodeLabel"></span></h2></div>
+          <button id="copyInvite" class="secondary small">Copy invite link</button>
+        </div>
+        <div class="player-wrap">
+          <div id="playerPlaceholder" class="player-placeholder">
+            <div class="play-symbol">▶</div>
+            <h3>Pick something to watch</h3>
+            <p>Search YouTube below and add a video to get started.</p>
+          </div>
+          <div id="player"></div>
+          <div id="playerStatus" class="player-status hidden"></div>
+          <button id="syncPrompt" class="primary sync-prompt hidden">▶ Click to join playback</button>
+        </div>
+        <div class="player-toolbar panel">
+          <div class="now-playing"><span class="live-dot"></span><span id="nowPlaying">Nothing playing yet</span></div>
+          <div class="controls">
+            <button id="playPause" class="primary control-button" disabled>▶ Play</button>
+            <button id="skipVideo" class="secondary control-button" disabled>Skip ⏭</button>
+            <label class="volume"><span aria-hidden="true">🔊</span><input id="volume" type="range" min="0" max="100" value="100" aria-label="Your volume"></label>
+          </div>
+          <p class="sync-note">The server keeps everyone on the same timeline. Anyone can play, pause, or skip; volume is just for you.</p>
+        </div>
+        <section class="search-section panel">
+          <div class="section-title"><div><div class="eyebrow">FIND YOUR NEXT VIDEO</div><h3>Search YouTube</h3></div></div>
+          <form id="searchForm" class="search-row">
+            <input id="searchInput" placeholder="Search by title, artist, topic, or paste a YouTube link..." autocomplete="off">
+            <button class="primary" type="submit">Search</button>
+          </form>
+          <div id="searchStatus" class="muted"></div>
+          <div id="searchResults" class="results"></div>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <section class="panel queue-panel">
+          <div class="section-title"><div><div class="eyebrow">UP NEXT</div><h3>Queue <span id="queueCount" class="count">0</span></h3></div></div>
+          <div id="currentTrack" class="current-track muted">No video selected</div>
+          <div id="queueList" class="queue-list"><p class="empty-state">Your queue is empty.</p></div>
+        </section>
+        <section class="panel people-panel">
+          <div class="section-title"><div><div class="eyebrow">IN THE ROOM</div><h3>People <span id="peopleCount" class="count">0</span></h3></div></div>
+          <div id="peopleList" class="people-list"></div>
+        </section>
+        <section class="panel chat-panel">
+          <div class="section-title"><div><div class="eyebrow">SAY SOMETHING</div><h3>Room chat</h3></div></div>
+          <div id="chatMessages" class="chat-messages"></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" maxlength="500" placeholder="Send a message..." autocomplete="off">
+            <button class="primary" aria-label="Send message">➤</button>
+          </form>
+        </section>
+      </aside>
+    </section>
+    <footer>SideBySide · A little less distance between friends.</footer>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="/app.js?v=3"></script>
+</body>
+</html>
